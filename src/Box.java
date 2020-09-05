@@ -10,11 +10,13 @@ public class Box {
         adress="";
     }
     Box(ArrayList<Book> books, String adress){
-        this();
+        //this();
         this.books=books;
         this.adress=adress;
     }
-
+    public ArrayList<Book> getArrayBook() {
+        return books;
+    }
     public ArrayList<Book> extradition(Book pickedUp){
     books.remove(pickedUp);
     return books;

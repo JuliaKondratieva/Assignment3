@@ -3,14 +3,13 @@ public class User {
     private int idNumber;
     private String adress;
 
-    User() {
+    public User() {
         username = "";
         idNumber = 0;
-        adress="";
+        adress = "";
     }
 
-    User(String username, int idNumber, String adress) {
-        this();
+    public User(String username, int idNumber, String adress) {
         this.username = username;
         this.idNumber = idNumber;
         this.adress=adress;
@@ -18,10 +17,5 @@ public class User {
     public String getAdress() {
         return adress;
     }
-    public void orderBook(Book book){
 
-    }
-    public void leaveBook(Book book){
-
-    }
 }

@@ -1,69 +1,15 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Service {
-    private ArrayList<Book> books;
-    private HashMap<Book, ArrayList<User>> waitingList;
-    private HashMap<Book, User> belongList;
-    private ArrayList<Order> orders;
+    private DataServer data;
 
-    public ArrayList<Book> sortGenre(ArrayList<Book> books, Genre genre) {
-        ArrayList<Book> sorted = new ArrayList<Book>();
-        for (Book book : books)
-            if (book.getGenre().equals(genre)) {
-                sorted.add(book);
-            }
-
-        return sorted;
-    }
-
-    public ArrayList<Book> sortRating(ArrayList<Book> books, int rating) {
-        ArrayList<Book> sorted = new ArrayList<Book>();
-        for (Book book : books)
-            if (book.getRating() == rating) {
-                sorted.add(book);
-            }
-
-        return sorted;
-    }
-
-    public ArrayList<Book> sortAuthor(ArrayList<Book> books, String author) {
-        ArrayList<Book> sorted = new ArrayList<Book>();
-        for (Book book : books)
-            if (book.getAuthor().equals(author)) {
-                sorted.add(book);
-            }
-
-        return sorted;
-    }
-
-    public ArrayList<Book> sortYear(ArrayList<Book> books, long year) {
-        ArrayList<Book> sorted = new ArrayList<Book>();
-        for (Book book : books)
-            if (book.getYear() == year) {
-                sorted.add(book);
-            }
-
-        return sorted;
-    }
-
-    public void orderSubmit(Order order) {
-        if (order.getBook().getAvailability() && !order.getBook().getRepair()) {
-            belongList.put(order.getBook(), order.getUser());
-            order.getBook().setAvailability(false);
-        } else if (!order.getBook().getAvailability()) {
-            addToList(order.getBook(), order.getUser(), waitingList);
-        } else
-            order.getBook().setRepair(true);
-    }
-}
-
-    synchronized void addToList(Book mapBook, User user, HashMap<Book, ArrayList<User>> hashList) {
-        ArrayList<User> usersList = hashList.get(mapBook);
+    public synchronized void addToList(Book mapBook, User user, HashMap<Book, Queue<User>> hashList) {
+        Queue<User> usersList = hashList.get(mapBook);
 
         // if list does not exist create it
         if(usersList == null) {
-            usersList = new ArrayList<User>();
+            usersList = new LinkedList<>();
             usersList.add(user);
             hashList.put(mapBook, usersList);
         } else {
@@ -72,4 +18,50 @@ public class Service {
                 usersList.add(user);
         }
     }
+    public void orderSubmit(Order order) {
+        if (order.getBook().getAvailability() && !order.getBook().getRepair()) {
+            //////////////CONSIDER ALREADY DONE IN DELIVERY belongList.put(order.getBook(), order.getUser());
+            order.getBook().setAvailability(false);
+            data.getOrdersArray().add(order);
+            System.out.println("Your order is accepted");
+        } else if (!order.getBook().getAvailability()) {
+            addToList(order.getBook(), order.getUser(), data.getWaitingList());
+            System.out.println("Your order is accepted but you're on the waitlist, expect your turn");
+        } else {
+            order.getBook().setRepair(true);
+            System.out.println("Book is not available");
+        }
+
+    }
+
+    public void orderClean(Order order){
+        if(order.getBook().getDelivered()){
+            data.getBelongList().put(order.getBook(), order.getUser());
+            data.getOrdersArray().remove(order);
+        }
+    }
+
+    //DEALING WITH WAITING LIST
+    public void moveQueue(HashMap<Book, Queue<User>> waitingList){
+        for(Book book : waitingList.keySet()){
+            if(book.getAvailability()){
+                waitingList.get(book).poll();
+                Order newOrder=new Order(book, waitingList.get(book).element(), LocalDate.now(), LocalDate.now().plusWeeks(3));
+                orderSubmit(newOrder);
+                //belong to a new user, delete previous
+            }
+        }
+    }
+    public void outputOrder(Order order){
+        System.out.println("Book: "+ order.getBook().getTitle());
+        System.out.println("Order date: "+ order.getFromDate().toString());
+        System.out.println("Expire date: "+ order.getDueDate().toString());
+
+    }
+    ///SERVICE IS DEALING WITH ORDERS
+
+
 }
+
+
+
