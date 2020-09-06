@@ -1,6 +1,10 @@
+package com.labs.a1;
+
 import java.util.ArrayList;
 
 public class FilterService {
+    DataServer dataServer=new DataServer();
+
     public ArrayList<Book> filterGenre(ArrayList<Book> books, Genre genre) {
         ArrayList<Book> sorted = new ArrayList<Book>();
         for (Book book : books)
@@ -39,6 +43,16 @@ public class FilterService {
             }
 
         return sorted;
+    }
+
+    public Book findBookTitle(String inputTitle){
+        Book ordered=new Book();
+        for(int i=0; i< dataServer.getBooksArray().size();++i){
+            if(dataServer.getBooksArray().get(i).getTitle().compareTo(inputTitle)==0)
+                ordered=dataServer.getBooksArray().get(i);
+        }
+
+        return ordered;
     }
 
     public void printArray(ArrayList<Book> array) {

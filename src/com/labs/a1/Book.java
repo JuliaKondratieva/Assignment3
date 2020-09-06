@@ -1,3 +1,5 @@
+package com.labs.a1;
+
 public class Book {
     private String title;
     private String author;
@@ -6,7 +8,6 @@ public class Book {
     private Genre genre;
     private boolean available;
     private boolean needRepair;
-    private boolean isDelivered;
 
     Book()
     {
@@ -17,9 +18,9 @@ public class Book {
         genre=null;
         available=true;
         needRepair=false;
-        isDelivered=false;
+        //isDelivered=false;
     }
-    Book(String title, String author, long year, double rating, Genre genre, boolean available, boolean needRepair, boolean isDelivered){
+    Book(String title, String author, long year, double rating, Genre genre, boolean available, boolean needRepair){
         //this();
         this.title=title;
         this.author=author;
@@ -28,17 +29,12 @@ public class Book {
         this.genre=genre;
         this.available=available;
         this.needRepair=needRepair;
-        this.isDelivered=isDelivered;
+        //this.isDelivered=isDelivered;
     }
     public String getTitle(){
         return title;
     }
-    public boolean getDelivered() {
-        return isDelivered;
-    }
-    public void setDelivered(boolean delivered) {
-        this.isDelivered=delivered;
-    }
+
     public Genre getGenre(){
         return genre;
     }

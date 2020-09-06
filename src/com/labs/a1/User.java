@@ -1,3 +1,5 @@
+package com.labs.a1;
+
 public class User {
     private String username;
     private int idNumber;
@@ -16,6 +18,9 @@ public class User {
     }
     public String getAdress() {
         return adress;
+    }
+    public String getUsername(){
+        return username;
     }
 
 }

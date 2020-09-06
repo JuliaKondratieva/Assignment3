@@ -1,3 +1,5 @@
+package com.labs.a1;
+
 import java.util.ArrayList;
 
 public class Box {
@@ -6,7 +8,7 @@ public class Box {
 
     Box()
     {
-        books=null;
+        books=new ArrayList<Book>();
         adress="";
     }
     Box(ArrayList<Book> books, String adress){
@@ -17,15 +19,15 @@ public class Box {
     public ArrayList<Book> getArrayBook() {
         return books;
     }
-    public ArrayList<Book> extradition(Book pickedUp){
-    books.remove(pickedUp);
-    return books;
+    public void setArrayBook(ArrayList<Book> books){
+        this.books=books;
+    }
+    public void setAddress(String address){
+        this.adress=address;
     }
 
-    public ArrayList<Book> addingBook(Book left){
-        books.add(left);
-        return books;
-    }
+
+
     public String getAdress() {
         return adress;
     }
