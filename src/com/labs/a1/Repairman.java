@@ -1,9 +1,20 @@
 package com.labs.a1;
 
+import java.util.UUID;
+
 public class Repairman {
-    private int IdNumber;
-public void repair(Book book) {
-    System.out.println("The book is repaired");
-book.setAvailability(true);
-}
+
+    private final UUID idNumber;
+
+    public Repairman (){
+        idNumber = UUID.randomUUID();
+    }
+
+    public UUID getIdNumber() {
+        return idNumber;
+    }
+
+    public void repair(Book book) {
+        book.isAvailable();
+    }
 }

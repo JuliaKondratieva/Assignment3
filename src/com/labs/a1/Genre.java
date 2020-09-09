@@ -1,5 +1,7 @@
 package com.labs.a1;
 
 public enum Genre {
-    FANTASY, ADVENTURE, ROMANCE, MYSTERY, HORROR, THRILLER, SCIENCEFICTION
+    FANTASY,
+    THRILLER,
+    SCIENCEFICTION
 }

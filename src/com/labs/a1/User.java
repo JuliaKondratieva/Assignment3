@@ -1,26 +1,30 @@
 package com.labs.a1;
 
+import java.util.UUID;
+
 public class User {
     private String username;
-    private int idNumber;
-    private String adress;
+    private UUID idNumber;
 
     public User() {
         username = "";
-        idNumber = 0;
-        adress = "";
+        idNumber= UUID.randomUUID();
     }
 
-    public User(String username, int idNumber, String adress) {
+    public User(String username) {
         this.username = username;
-        this.idNumber = idNumber;
-        this.adress=adress;
     }
-    public String getAdress() {
-        return adress;
+
+    public UUID getIdNumber() {
+        return idNumber;
     }
+
     public String getUsername(){
         return username;
+    }
+
+    public void setUsername(String username){
+        this.username=username;
     }
 
 }
