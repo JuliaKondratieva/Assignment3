@@ -58,7 +58,7 @@ public class BookcrossingMainApplication {
 
 		Bookorder newOrder= new Bookorder();
 		newOrder.setBook(b1);
-		newOrder.setUser(user1);
+		//newOrder.setUser(user1);
 		submitOrder(b1, user1);
 		Box box1=new Box();
 		HttpEntity<String> address = new HttpEntity<>("Khreschatyk");
@@ -70,6 +70,22 @@ public class BookcrossingMainApplication {
 		box1.setAddress("Khreschatyk");
 		//List<Book> toDeliver = new ArrayList<>();
 		//toDeliver.add(b1);
+		deliverToBox(box1, b1);
+
+		////////////newwwwwwwwwwww
+		User user2 = new User();
+		user2.setUsername("Arnold");
+		saveUser(user2);
+		Bookorder order2= new Bookorder();
+		System.out.println("ARNOLD IS ORDERING THE TAKEN BOOK:\n");
+		order2.setBook(b1);
+		//order2.setUser(user2); //////1017
+		submitOrder(b1, user2);
+
+		System.out.println("Ox is picking up a book");
+		checkOutFromBox(box1, b1);
+
+		System.out.println("Ox is returning a book");
 		deliverToBox(box1, b1);
 
 	}
@@ -125,6 +141,21 @@ public class BookcrossingMainApplication {
 	}
 
 
+	private static void checkOutFromBox(Box box, Book book){
+		DeliveryDTO deliveryDTO = new DeliveryDTO();
+		deliveryDTO.setBook(book);
+		//deliveryDTO.setBookorder(bookorder);
+		deliveryDTO.setBox(box);
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String deliverJsonStr = gson.toJson(deliveryDTO);
+		HttpEntity<String> deliverJson = new HttpEntity<>(deliverJsonStr, headers);
+		ResponseEntity<Void> response1 = restTemplate
+				.exchange(URL + "/api/checkout", HttpMethod.POST, deliverJson, Void.class);
+
+		System.out.println("Checked book:" + book.getTitle() + "\n" + "From : "
+				+ box.getAddress() + " box \n");
+	}
+
 
 	private static void deliverToBox(Box box, Book book){
 		DeliveryDTO deliveryDTO = new DeliveryDTO();
@@ -141,35 +172,10 @@ public class BookcrossingMainApplication {
 		System.out.println("Delivery to the" + box.getAddress() + " box: \n" + "Book: "
 				+ book.getTitle() + " is delivered \n");
 
-/*
-		BoxDTO boxDTO = new BoxDTO();
-		boxDTO.setBooks(booksList);
-		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-		String deliverJsonStr = gson.toJson(boxDTO);
-		HttpEntity<String> deliverJson = new HttpEntity<>(deliverJsonStr, headers);
-		ResponseEntity<Void> response4 = restTemplate
-				.exchange(URL + "/api/boxes/deliver", HttpMethod.POST, deliverJson, Void.class);
 
-		for(int i=0; i<booksList.size();++i) {
-			System.out.println("Delivery to the" + box.getAddress().toString() + " box: \n" + "Book: "
-					+ booksList.get(i).getTitle() + " is delivered \n");*/
-		}
-
-		/* private static void printOrders(List<Product> products) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\n___________________________________________");
-        stringBuilder.append("\nProducts: ");
-        for (Product p : products) {
-            stringBuilder.append("\n").append(p);
-        }
-        stringBuilder.append("\n___________________________________________");
-
-        System.out.println(stringBuilder.toString());
-    }*/
 	}
+}
 
-	//public static void main(String[] args) {
-	//	SpringApplication.run(BookcrossingMainApplication.class, args);
-	//}
+
 
 
