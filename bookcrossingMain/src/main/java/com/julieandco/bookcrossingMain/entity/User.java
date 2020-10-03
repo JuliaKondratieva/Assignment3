@@ -11,7 +11,6 @@ public class User {
 
     public User() {
         username = "";
-        //idNumber= UUID.randomUUID();
     }
 
     public User(String username) {

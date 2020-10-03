@@ -3,15 +3,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.julieandco.bookcrossingMain.dto.*;
 import com.julieandco.bookcrossingMain.entity.*;
-//import entities.dto.*;
-import org.springframework.core.annotation.Order;
+
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.*;
-import org.springframework.boot.SpringApplication;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
@@ -66,20 +62,19 @@ public class BookcrossingMainApplication {
 				.exchange(URL + "/api/boxes/save", HttpMethod.POST,
 						address, Void.class);
 
-		//saveBox(box1);
+
 		box1.setAddress("Khreschatyk");
-		//List<Book> toDeliver = new ArrayList<>();
-		//toDeliver.add(b1);
+
 		deliverToBox(box1, b1);
 
-		////////////newwwwwwwwwwww
+
 		User user2 = new User();
 		user2.setUsername("Arnold");
 		saveUser(user2);
 		Bookorder order2= new Bookorder();
 		System.out.println("ARNOLD IS ORDERING THE TAKEN BOOK:\n");
 		order2.setBook(b1);
-		//order2.setUser(user2); //////1017
+
 		submitOrder(b1, user2);
 
 		System.out.println("Ox is picking up a book");

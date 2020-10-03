@@ -2,7 +2,7 @@ package com.julieandco.bookcrossingMain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 public class Box {
     private List<Book> books;
