@@ -4,22 +4,22 @@ import com.julieandco.bookcrossingMain.entity.Book;
 import com.julieandco.bookcrossingMain.entity.User;
 
 public class SubmitOrderDTO {
-    private User user;
-    private Book book;
+    private UserDTO user;
+    private BookDTO book;
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public Book getBook() {
+    public BookDTO getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(BookDTO book) {
         this.book = book;
     }
 }

@@ -3,6 +3,7 @@ package com.julieandco.bookcrossingMain.entity;
 import java.util.UUID;
 
 public class Book {
+    private UUID id;
     private String title;
     private String author;
     private long year;
@@ -28,6 +29,14 @@ public class Book {
         this.genre=genre;
         this.available=true;
         this.needRepair=false;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
