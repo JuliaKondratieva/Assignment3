@@ -31,18 +31,27 @@ public class BookorderService {
         //Book bookel=bookRepository.findBookByTitle(orderedBook.getTitle());
         //User user1=userRepository.findByUsername(user.getUsername());
         Bookorder newOrder;
-        newOrder = null;
+        System.out.println("BOKID\n");/////null
 
-        if(bookorderRepo.findByBookId(orderedBook.getId())!=null){
+        System.out.println("BOOKID: "+orderedBook.getId().toString());/////null
+
+        newOrder = null;
+        List<Bookorder> findById;
+        findById = bookorderRepo.findByBookId(orderedBook.getId());
+        System.out.println("----------BOOKORDERSERVICE--------");
+        //System.out.println("FINDBYIDLIST: 1 "+bookorderRepo.findByBookId(orderedBook.getId()).get(0).toString() +" 2- "+bookorderRepo.findByBookId(orderedBook.getId()).get(1));
+        if(findById.contains(orderedBook)){
             newOrder=new Bookorder();
             newOrder.setBookId(orderedBook.getId());
             newOrder.setCustomerId(user.getId());
             newOrder.setSubmitted(false);
+            System.out.println("SAVING TO REPO");
             bookorderRepo.save(newOrder);
             System.out.println("You are in waiting list \n");
         }
 
         else {
+            System.out.println("ELSE LOOP SAVING nEW ORDER");
             newOrder = new Bookorder();
             newOrder.setBookId(orderedBook.getId());
             newOrder.setCustomerId(user.getId());
@@ -66,9 +75,9 @@ public class BookorderService {
 
     @Transactional
     public void saveOrder(Bookorder bookorder){
-        if(bookorderRepo.findByBookId(bookorder.getBookId()) == null){
+        //if(bookorderRepo.findByBookId(bookorder.getBookId()) == null){
             bookorderRepo.save(bookorder);
-        }
+        //}
     }
 
     @Transactional

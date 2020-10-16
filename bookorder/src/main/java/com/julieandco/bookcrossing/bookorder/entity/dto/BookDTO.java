@@ -10,6 +10,16 @@ public class BookDTO {
     private double rating;
     private GenreDTO genreDTO;
 
+    public BookDTO(){}
+    public BookDTO(UUID id, String title, String author, long year, double rating, GenreDTO genreDTO){
+        this.id = id;
+        this.title = title;
+        this.author=author;
+        this.year=year;
+        this.rating=rating;
+        this.genreDTO = genreDTO;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
