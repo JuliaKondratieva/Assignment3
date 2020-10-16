@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class SubmitBookorderDTO {
-    private UUID user;
-    private UUID book;
+    private CustomerDTO user;
+    private BookDTO book;
     private LocalDateTime fromDate;
     private LocalDateTime dueDate;
     private boolean deliveryState;
@@ -15,7 +15,7 @@ public class SubmitBookorderDTO {
 
     }
 
-    public SubmitBookorderDTO(UUID book, UUID user){
+    public SubmitBookorderDTO(BookDTO book, CustomerDTO user){
         this.book=book;
         this.user=user;
     }
@@ -53,19 +53,19 @@ public class SubmitBookorderDTO {
         this.submitted = submitted;
     }
 
-    public UUID getUser() {
+    public CustomerDTO getUser() {
         return user;
     }
 
-    public void setUser(UUID user) {
+    public void setUser(CustomerDTO user) {
         this.user = user;
     }
 
-    public UUID getBook() {
+    public BookDTO getBook() {
         return book;
     }
 
-    public void setBook(UUID book) {
+    public void setBook(BookDTO book) {
         this.book = book;
     }
 }

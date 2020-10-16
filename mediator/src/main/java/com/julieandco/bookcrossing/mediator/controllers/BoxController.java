@@ -63,10 +63,10 @@ public class BoxController {
         List<SubmitBookorderDTO> orders =new ArrayList<>();
         orders =(Objects.requireNonNull(response2.getBody()).getBookorders());
         for(SubmitBookorderDTO o: orders){
-            if(o.getBook()==book.getId()){
+            /*if(o.getBook()==book.getId()){
                 foundOrder = o;
                 break;
-            }
+            }*/ /////////////////////delete **//
         }
         if(foundOrder.isDeliveryState()){
             //delete order and next in order set
