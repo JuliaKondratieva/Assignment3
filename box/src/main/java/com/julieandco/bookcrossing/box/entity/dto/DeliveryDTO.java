@@ -1,0 +1,31 @@
+package com.julieandco.bookcrossing.box.entity.dto;
+
+import com.julieandco.bookcrossing.box.entity.Box;
+
+import java.util.UUID;
+
+public class DeliveryDTO {
+    private BookDTO book;
+    private BoxDTO box;
+
+    public DeliveryDTO(BoxDTO box, BookDTO book) {
+        this.book = book;
+        this.box= box;
+    }
+
+    public void setBox(BoxDTO box) {
+        this.box = box;
+    }
+
+    public void setBook(BookDTO book) {
+        this.book = book;
+    }
+
+    public BookDTO getBook() {
+        return book;
+    }
+
+    public BoxDTO getBox() {
+        return box;
+    }
+}
