@@ -14,7 +14,8 @@ public class BookDTO {
 
     public BookDTO(){}
 
-    public BookDTO(String title, String author, long year, double rating, Genre genre){
+    public BookDTO(UUID id, String title, String author, long year, double rating, Genre genre){
+        this.id = id;
         this.title=title;
         this.author=author;
         this.rating=rating;

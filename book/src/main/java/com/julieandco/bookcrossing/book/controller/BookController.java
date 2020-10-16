@@ -27,7 +27,8 @@ public class BookController {
         BooksDTO booksDTO = new BooksDTO();
         List<Book> books = bookService.getAllBooks();
         for(Book b: books){
-            BookDTO bookDTO = new BookDTO(b.getTitle(), b.getAuthor(), b.getYear(), b.getRating(), b.getGenre());
+            System.out.println("BID: "+b.getId().toString());
+            BookDTO bookDTO = new BookDTO(b.getId(), b.getTitle(), b.getAuthor(), b.getYear(), b.getRating(), b.getGenre());
             booksDTO.getBooks().add(bookDTO);
         }
         return booksDTO;
