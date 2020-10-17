@@ -40,6 +40,10 @@ public class Bookorder {
         this.submitted=sub;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public UUID getBookId(){
         return bookId;
     }

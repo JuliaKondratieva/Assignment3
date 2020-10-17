@@ -91,17 +91,53 @@ public class BookorderController {
         return ResponseEntity.ok().build();
     }
 
-    /*@GetMapping
+    @GetMapping
     public @ResponseBody
     BookorderDTO getAllOrders(){
         BookorderDTO ordersDTO = new BookorderDTO();
+        BookDTO bookDTO = new BookDTO();
+        CustomerDTO customerDTO = new CustomerDTO();
         List<Bookorder> orders = bookorderService.getAllOrders();
         for(Bookorder b: orders){
-            SubmitBookorderDTO bookorderDTO=new SubmitBookorderDTO(b.getBookId(), b.getCustomerId());
-            ordersDTO.getBookorders().add(bookorderDTO);
+
+            System.out.println("SENDING BOOK REQUEST IN GET ALL");
+            ResponseEntity<BooksDTO> response6 = restTemplate
+                    .exchange(URL + "/api/books", HttpMethod.GET, headersEntity, BooksDTO.class);
+            for (BookDTO boo : Objects.requireNonNull(response6.getBody()).getBooks()) {
+                //System.out.println(b);
+                System.out.println("RECEIVED REQUEST: b: "+boo.getTitle());
+                if(boo.getId().equals(b.getBookId())) {
+                    System.out.println("ORDERBOOK==BOOK");
+                    System.out.println("bookID: "+ boo.getId().toString());
+                    bookDTO=boo;
+                    //submitted=true;
+                    break;
+                }
+            }
+
+            System.out.println("SENDING CUSTOMER REQUEST IN GET ALL");
+
+            ResponseEntity<CustomersDTO> response5 = restTemplate
+                    .exchange(URLC + "/api/customers", HttpMethod.GET, headersEntity, CustomersDTO.class);
+
+            for (CustomerDTO c : Objects.requireNonNull(response5.getBody()).getUsers()) {
+                //System.out.println(b);
+                System.out.println("RECEIVED REQUEST: c: "+c.getUsername());
+                if(c.getId().equals(b.getCustomerId())) {
+                    System.out.println("ORDERCUSTOMER==USER");
+                    System.out.println("сID: "+ c.getId().toString());
+
+                    customerDTO=c;
+                    //custFound=true;
+                    break;
+                }
+            }
+
+            SubmitBookorderDTO bookorderDTO=new SubmitBookorderDTO(bookDTO, customerDTO);
+            ordersDTO.getBookorders().add(bookorderDTO); //null
         }
         return ordersDTO;
-    }*/
+    }
 
     @PostMapping("/save")
     public ResponseEntity<Void> saveBookorder(@RequestBody SubmitBookorderDTO bookorderDTO){
@@ -131,14 +167,32 @@ public class BookorderController {
 
     @PutMapping("/put")
     public ResponseEntity<Void> putOrder(@RequestBody SubmitBookorderDTO bookorderDTO){
-        CustomerDTO customerUUID = bookorderDTO.getUser();
-        BookDTO bookUUID = bookorderDTO.getBook();
+        //CustomerDTO customerUUID = bookorderDTO.getUser();
+        //BookDTO bookDTO = new BookDTO();
+        System.out.println("--------PUTTING ORDER---------");
+        List<Bookorder> allOrders = bookorderService.getAllOrders();
+        System.out.println("BOOK ID: "+bookorderDTO.getBook().getId().toString());
+        for(Bookorder o: allOrders){
+            System.out.println("Order O: "+o.getId().toString());
+            System.out.println("ORDER BOOK: "+o.getBookId().toString());
+            System.out.println("BOOKORRDERDTOID: "+ bookorderDTO.getBook().getId().toString());
+           if(o.getBookId().equals(bookorderDTO.getBook().getId())){
+               System.out.println("EQUAL");
+               Bookorder bookorder=new Bookorder(o.getBookId(), o.getCustomerId(), o.getFromDate(), o.getDueDate(), bookorderDTO.isDeliveryState(), o.getSubmitted());
+               bookorder.setId(o.getId());
+               bookorderService.saveOrder(bookorder);
+               break;
+           }
+
+        }
+
+        /*BookDTO bookUUID = bookorderDTO.getBook();
         LocalDateTime fromDate = bookorderDTO.getFromDate();
         LocalDateTime dueDate=bookorderDTO.getDueDate();
         boolean deliveryState = bookorderDTO.isDeliveryState();
         boolean submitted = bookorderDTO.isSubmitted();
-        Bookorder bookorder=new Bookorder(customerUUID.getId(), bookUUID.getId(), fromDate, dueDate, deliveryState, submitted);
-        bookorderService.saveOrder(bookorder);
+        Bookorder bookorder=new Bookorder(bookUUID.getId(), customerUUID.getId(), fromDate, dueDate, deliveryState, submitted);
+        bookorderService.saveOrder(bookorder);*/
         return ResponseEntity.ok().build();
     }
 }
