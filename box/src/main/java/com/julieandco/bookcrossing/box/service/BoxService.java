@@ -34,10 +34,14 @@ public class BoxService {
 
     @Transactional
     public void addBook(Box box, BookDTO receivedBook) {
+        System.out.println("------SERVICE-----");
         Box foundBox = boxRepository.findByAddress(box.getAddress());
+        System.out.println("BOXID: "+foundBox.getId().toString());
+        System.out.println("BOOKID: "+receivedBook.getId().toString());
+
         Box newBox=new Box(foundBox.getId(), receivedBook.getId(), foundBox.getAddress());
         boxRepository.save(newBox);
-        System.out.println("START OF ADDBOOK");
+        System.out.println("END OF ADDBOOK");
         //Bookorder recOrder = null;
         //List<Bookorder> byBookId = new ArrayList<>();
         //List<Bookorder> nextOrderQueue = new ArrayList<>();

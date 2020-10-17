@@ -52,24 +52,29 @@ public class BoxController {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         DeliveryDTO deliver = gson.fromJson(deliverJson, DeliveryDTO.class);
         BookDTO book = deliver.getBook();
+        //System.out.println("BOOK FROM JSON: "+book.getId().toString());
         BoxDTO putIn = deliver.getBox();
+        //System.out.println("BOX FROM JSON: "+putIn.getId().toString());
         UUID foundBook = null;
         BookDTO bookDTO=new BookDTO();
 
         ResponseEntity<BooksDTO> response6 = restTemplate
                 .exchange(URL + "/api/books", HttpMethod.GET, headersEntity, BooksDTO.class);
-
+        System.out.println("GOT RESPONSE FROM BOOKS");
         for (BookDTO b : Objects.requireNonNull(response6.getBody()).getBooks()) {
-            //System.out.println(b);
-            if (b.getId() == book.getId()) {
+            System.out.println("BId: "+b.getId().toString());
+            if (b.getTitle().equals(book.getTitle())) {
+                System.out.println("B==BOOK");
                 bookDTO=b;
-                foundBook = book.getId();
+                foundBook = b.getId();
                 break;
             }
         }
         Box foundBox = boxService.findByAddress(putIn.getAddress());
-        if(foundBook!=null)
+        if(foundBook!=null) {
+            System.out.println("FOUND BOOK ISNT NULL");
             boxService.addBook(foundBox, bookDTO);
+        }
 
         return ResponseEntity.ok().build();
     }

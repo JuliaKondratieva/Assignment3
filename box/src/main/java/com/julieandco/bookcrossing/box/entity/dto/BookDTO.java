@@ -10,6 +10,8 @@ public class BookDTO {
     private double rating;
     private GenreDTO genreDTO;
 
+    public BookDTO(){}
+
     public void setTitle(String title) {
         this.title = title;
     }
