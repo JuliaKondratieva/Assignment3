@@ -2,7 +2,10 @@ package com.julieandco.bookcrossingMain.dto;
 
 import com.julieandco.bookcrossingMain.entity.Genre;
 
+import java.util.UUID;
+
 public class BookDTO {
+    private UUID id;
     private String title;
     private String author;
     private long year;
@@ -10,6 +13,16 @@ public class BookDTO {
     private Genre genre;
     private boolean available;
     private boolean needRepair;
+
+    public BookDTO(){}
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public void setTitle(String title) {
         this.title = title;

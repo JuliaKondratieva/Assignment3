@@ -56,7 +56,7 @@ public class BookcrossingMainApplication {
 		newOrder.setBook(b1);
 		//newOrder.setUser(user1);
 		submitOrder(b1, user1);
-		/*Box box1=new Box();
+		Box box1=new Box();
 		HttpEntity<String> address = new HttpEntity<>("Khreschatyk");
 		ResponseEntity<Void> response1 = restTemplate
 				.exchange(URL + "/api/boxes/save", HttpMethod.POST,
@@ -68,7 +68,7 @@ public class BookcrossingMainApplication {
 		deliverToBox(box1, b1);
 
 
-		User user2 = new User();
+		/*User user2 = new User();
 		user2.setUsername("Arnold");
 		saveUser(user2);
 		Bookorder order2= new Bookorder();
@@ -148,9 +148,21 @@ public class BookcrossingMainApplication {
 
 	private static void checkOutFromBox(Box box, Book book){
 		DeliveryDTO deliveryDTO = new DeliveryDTO();
-		deliveryDTO.setBook(book);
+		BoxDTO boxDTO=new BoxDTO();
+		boxDTO.setAddress(box.getAddress());
+		boxDTO.setBooks(box.getBooks());
+		BookDTO bookDTO=new BookDTO();
+		bookDTO.setTitle(book.getTitle());
+		bookDTO.setAuthor(book.getAuthor());
+		bookDTO.setGenre(book.getGenre());
+		bookDTO.setYear(book.getYear());
+		bookDTO.setRating(book.getRating());
+		bookDTO.setAvailable(book.getAvailability());
+		bookDTO.setNeedRepair(book.getRepair());
+		deliveryDTO.setBook(bookDTO);
+		deliveryDTO.setBook(bookDTO);
 		//deliveryDTO.setBookorder(bookorder);
-		deliveryDTO.setBox(box);
+		deliveryDTO.setBox(boxDTO);
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String deliverJsonStr = gson.toJson(deliveryDTO);
 		HttpEntity<String> deliverJson = new HttpEntity<>(deliverJsonStr, headers);
@@ -164,15 +176,26 @@ public class BookcrossingMainApplication {
 
 	private static void deliverToBox(Box box, Book book){
 		DeliveryDTO deliveryDTO = new DeliveryDTO();
-		deliveryDTO.setBook(book);
+		BoxDTO boxDTO=new BoxDTO();
+		boxDTO.setAddress(box.getAddress());
+		boxDTO.setBooks(box.getBooks());
+		BookDTO bookDTO=new BookDTO();
+		bookDTO.setTitle(book.getTitle());
+		bookDTO.setAuthor(book.getAuthor());
+		bookDTO.setGenre(book.getGenre());
+		bookDTO.setYear(book.getYear());
+		bookDTO.setRating(book.getRating());
+		bookDTO.setAvailable(book.getAvailability());
+		bookDTO.setNeedRepair(book.getRepair());
+		deliveryDTO.setBook(bookDTO);
 		//deliveryDTO.setBookorder(bookorder);
-		deliveryDTO.setBox(box);
+		deliveryDTO.setBox(boxDTO);
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String deliverJsonStr = gson.toJson(deliveryDTO);
 
 		HttpEntity<String> deliverJson = new HttpEntity<>(deliverJsonStr, headers);
 		ResponseEntity<Void> response1 = restTemplate
-				.exchange(URL + "/api/deliver", HttpMethod.POST, deliverJson, Void.class);
+				.exchange(URL + "/api/boxes/deliver", HttpMethod.POST, deliverJson, Void.class);
 
 		System.out.println("Delivery to the" + box.getAddress() + " box: \n" + "Book: "
 				+ book.getTitle() + " is delivered \n");

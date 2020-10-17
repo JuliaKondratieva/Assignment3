@@ -5,31 +5,31 @@ import com.julieandco.bookcrossingMain.entity.Box;
 
 public class DeliveryDTO {
 
-    private Box box;
-    private Book book;
+    private BoxDTO box;
+    private BookDTO book;
 
     public DeliveryDTO(){
 
     }
 
-    public DeliveryDTO(Book book, Box box) {
+    public DeliveryDTO(BookDTO book, BoxDTO box) {
         this.box= box;
         this.book = book;
     }
 
-    public void setBox(Box box) {
+    public void setBox(BoxDTO box) {
         this.box = box;
     }
 
-    public Book getBook() {
+    public BookDTO getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(BookDTO book) {
         this.book = book;
     }
 
-    public Box getBox() {
+    public BoxDTO getBox() {
         return box;
     }
 }
