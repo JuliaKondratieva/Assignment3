@@ -1,8 +1,6 @@
 package com.julieandco.bookcrossing.bookorder.entity.dto;
 
-import java.awt.print.Book;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class SubmitBookorderDTO {
     private CustomerDTO user;
@@ -13,7 +11,6 @@ public class SubmitBookorderDTO {
     private boolean submitted;
 
     public SubmitBookorderDTO(){
-
     }
 
     public SubmitBookorderDTO(BookDTO book, CustomerDTO user){

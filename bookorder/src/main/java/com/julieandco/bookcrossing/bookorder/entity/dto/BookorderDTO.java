@@ -1,7 +1,5 @@
 package com.julieandco.bookcrossing.bookorder.entity.dto;
 
-import com.julieandco.bookcrossing.bookorder.entity.Bookorder;
-
 import java.util.ArrayList;
 import java.util.List;
 

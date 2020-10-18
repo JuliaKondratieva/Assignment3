@@ -10,15 +10,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/bookorders")
@@ -55,7 +52,6 @@ public class BookorderController {
                 .exchange(URLC + "/api/customers", HttpMethod.GET, headersEntity, CustomersDTO.class);
 
         for (CustomerDTO c : Objects.requireNonNull(response5.getBody()).getUsers()) {
-            //System.out.println(b);
             System.out.println("RECEIVED REQUEST: c: "+c.getUsername());
             if(c.getUsername().equals(user.getUsername())) {
                 System.out.println("C==USER");
@@ -66,13 +62,11 @@ public class BookorderController {
                 break;
             }
         }
-        //get books and check if uuid exists
         System.out.println("SENDING BOOK REQUEST");
         ResponseEntity<BooksDTO> response6 = restTemplate
                 .exchange(URL + "/api/books", HttpMethod.GET, headersEntity, BooksDTO.class);
 
         for (BookDTO b : Objects.requireNonNull(response6.getBody()).getBooks()) {
-            //System.out.println(b);
             System.out.println("RECEIVED REQUEST: b: "+b.getTitle());
             if(b.getTitle().equals(book.getTitle())) {
                 System.out.println("B==BOOK");
@@ -104,13 +98,11 @@ public class BookorderController {
             ResponseEntity<BooksDTO> response6 = restTemplate
                     .exchange(URL + "/api/books", HttpMethod.GET, headersEntity, BooksDTO.class);
             for (BookDTO boo : Objects.requireNonNull(response6.getBody()).getBooks()) {
-                //System.out.println(b);
                 System.out.println("RECEIVED REQUEST: b: "+boo.getTitle());
                 if(boo.getId().equals(b.getBookId())) {
                     System.out.println("ORDERBOOK==BOOK");
                     System.out.println("bookID: "+ boo.getId().toString());
                     bookDTO=boo;
-                    //submitted=true;
                     break;
                 }
             }
@@ -126,15 +118,13 @@ public class BookorderController {
                 if(c.getId().equals(b.getCustomerId())) {
                     System.out.println("ORDERCUSTOMER==USER");
                     System.out.println("сID: "+ c.getId().toString());
-
                     customerDTO=c;
-                    //custFound=true;
                     break;
                 }
             }
 
             SubmitBookorderDTO bookorderDTO=new SubmitBookorderDTO(bookDTO, customerDTO);
-            ordersDTO.getBookorders().add(bookorderDTO); //null
+            ordersDTO.getBookorders().add(bookorderDTO); 
         }
         return ordersDTO;
     }
@@ -167,8 +157,6 @@ public class BookorderController {
 
     @PutMapping("/put")
     public ResponseEntity<Void> putOrder(@RequestBody SubmitBookorderDTO bookorderDTO){
-        //CustomerDTO customerUUID = bookorderDTO.getUser();
-        //BookDTO bookDTO = new BookDTO();
         System.out.println("--------PUTTING ORDER---------");
         List<Bookorder> allOrders = bookorderService.getAllOrders(); //null
         System.out.println("BOOK ID: "+bookorderDTO.getBook().getId().toString());
@@ -185,14 +173,6 @@ public class BookorderController {
            }
 
         }
-
-        /*BookDTO bookUUID = bookorderDTO.getBook();
-        LocalDateTime fromDate = bookorderDTO.getFromDate();
-        LocalDateTime dueDate=bookorderDTO.getDueDate();
-        boolean deliveryState = bookorderDTO.isDeliveryState();
-        boolean submitted = bookorderDTO.isSubmitted();
-        Bookorder bookorder=new Bookorder(bookUUID.getId(), customerUUID.getId(), fromDate, dueDate, deliveryState, submitted);
-        bookorderService.saveOrder(bookorder);*/
         return ResponseEntity.ok().build();
     }
 }

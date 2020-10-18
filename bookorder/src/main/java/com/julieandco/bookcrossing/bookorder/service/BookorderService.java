@@ -3,7 +3,6 @@ package com.julieandco.bookcrossing.bookorder.service;
 import com.julieandco.bookcrossing.bookorder.entity.Bookorder;
 import com.julieandco.bookcrossing.bookorder.entity.dto.BookDTO;
 import com.julieandco.bookcrossing.bookorder.entity.dto.CustomerDTO;
-import com.julieandco.bookcrossing.bookorder.entity.dto.SubmitBookorderDTO;
 import com.julieandco.bookcrossing.bookorder.repo.BookorderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,30 +15,24 @@ import java.util.UUID;
 
 @Service
 public class BookorderService {
-    //private final BookRepository bookRepository;
     private final BookorderRepo bookorderRepo;
-    //private final UserRepository userRepository;
 
     @Autowired
     public BookorderService(BookorderRepo bookorderRepo) {
-        //this.bookRepository = bookRepository;
         this.bookorderRepo = bookorderRepo;
     }
 
     @Transactional
     public void addOrder(BookDTO orderedBook, CustomerDTO user){
-        //Book bookel=bookRepository.findBookByTitle(orderedBook.getTitle());
-        //User user1=userRepository.findByUsername(user.getUsername());
         Bookorder newOrder;
-        System.out.println("BOKID\n");/////null
+        System.out.println("BOKID\n");
 
-        System.out.println("BOOKID: "+orderedBook.getId().toString());/////null
+        System.out.println("BOOKID: "+orderedBook.getId().toString());
 
         newOrder = null;
         List<Bookorder> findById;
         findById = bookorderRepo.findByBookId(orderedBook.getId());
         System.out.println("----------BOOKORDERSERVICE--------");
-        //System.out.println("FINDBYIDLIST: 1 "+bookorderRepo.findByBookId(orderedBook.getId()).get(0).toString() +" 2- "+bookorderRepo.findByBookId(orderedBook.getId()).get(1));
         boolean foundInList = false;
         for(Bookorder o: findById) {
             System.out.println("O" +o.getBookId().toString());
@@ -57,7 +50,6 @@ public class BookorderService {
             }
         }
 
-
         if(!foundInList) {
             System.out.println("ELSE LOOP SAVING nEW ORDER");
             newOrder = new Bookorder();
@@ -65,10 +57,6 @@ public class BookorderService {
             newOrder.setCustomerId(user.getId());
             bookorderRepo.save(newOrder);
         }
-
-        //bookel.setAvailable(false);
-        //bookRepository.save(bookel);
-
     }
 
     @Transactional
@@ -84,9 +72,7 @@ public class BookorderService {
 
     @Transactional
     public void saveOrder(Bookorder bookorder){
-        //if(bookorderRepo.findByBookId(bookorder.getBookId()) == null){
-            bookorderRepo.save(bookorder);
-        //}
+        bookorderRepo.save(bookorder);
     }
 
     @Transactional
@@ -108,5 +94,4 @@ public class BookorderService {
             bookorderRepo.save(nextOrder);
         }
     }
-
 }
