@@ -1,7 +1,5 @@
 package com.julieandco.bookcrossingMain.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.UUID;
 
 public class User {

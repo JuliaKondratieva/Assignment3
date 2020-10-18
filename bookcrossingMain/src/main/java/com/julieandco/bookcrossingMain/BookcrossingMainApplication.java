@@ -54,7 +54,6 @@ public class BookcrossingMainApplication {
 
 		Bookorder newOrder= new Bookorder();
 		newOrder.setBook(b1);
-		//newOrder.setUser(user1);
 		submitOrder(b1, user1);
 		Box box1=new Box();
 		HttpEntity<String> address = new HttpEntity<>("Khreschatyk");
@@ -67,8 +66,7 @@ public class BookcrossingMainApplication {
 
 		deliverToBox(box1, b1);
 
-
-		/*User user2 = new User();
+		User user2 = new User();
 		user2.setUsername("Arnold");
 		saveUser(user2);
 		Bookorder order2= new Bookorder();
@@ -79,9 +77,6 @@ public class BookcrossingMainApplication {
 
 		System.out.println("Ox is picking up a book");
 		checkOutFromBox(box1, b1);
-
-		System.out.println("Ox is returning a book");
-		deliverToBox(box1, b1);*/
 
 	}
 
@@ -161,13 +156,12 @@ public class BookcrossingMainApplication {
 		bookDTO.setNeedRepair(book.getRepair());
 		deliveryDTO.setBook(bookDTO);
 		deliveryDTO.setBook(bookDTO);
-		//deliveryDTO.setBookorder(bookorder);
 		deliveryDTO.setBox(boxDTO);
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String deliverJsonStr = gson.toJson(deliveryDTO);
 		HttpEntity<String> deliverJson = new HttpEntity<>(deliverJsonStr, headers);
 		ResponseEntity<Void> response1 = restTemplate
-				.exchange(URL + "/api/checkout", HttpMethod.POST, deliverJson, Void.class);
+				.exchange(URL + "/api/boxes/checkout", HttpMethod.POST, deliverJson, Void.class);
 
 		System.out.println("Checked book:" + book.getTitle() + "\n" + "From : "
 				+ box.getAddress() + " box \n");
@@ -188,7 +182,6 @@ public class BookcrossingMainApplication {
 		bookDTO.setAvailable(book.getAvailability());
 		bookDTO.setNeedRepair(book.getRepair());
 		deliveryDTO.setBook(bookDTO);
-		//deliveryDTO.setBookorder(bookorder);
 		deliveryDTO.setBox(boxDTO);
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String deliverJsonStr = gson.toJson(deliveryDTO);
@@ -199,8 +192,6 @@ public class BookcrossingMainApplication {
 
 		System.out.println("Delivery to the" + box.getAddress() + " box: \n" + "Book: "
 				+ book.getTitle() + " is delivered \n");
-
-
 	}
 }
 

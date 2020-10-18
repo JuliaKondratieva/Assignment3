@@ -3,7 +3,6 @@ package com.julieandco.bookcrossingMain.dto;
 import com.julieandco.bookcrossingMain.entity.Book;
 
 import java.util.List;
-import java.util.UUID;
 
 public class BoxDTO {
     private List<Book> books;

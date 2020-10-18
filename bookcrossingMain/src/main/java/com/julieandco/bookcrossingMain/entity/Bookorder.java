@@ -1,7 +1,5 @@
 package com.julieandco.bookcrossingMain.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.time.LocalDate;
 import java.util.UUID;
 

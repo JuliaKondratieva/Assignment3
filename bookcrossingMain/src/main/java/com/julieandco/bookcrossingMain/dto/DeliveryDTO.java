@@ -1,8 +1,5 @@
 package com.julieandco.bookcrossingMain.dto;
 
-import com.julieandco.bookcrossingMain.entity.Book;
-import com.julieandco.bookcrossingMain.entity.Box;
-
 public class DeliveryDTO {
 
     private BoxDTO box;
