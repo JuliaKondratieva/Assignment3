@@ -52,9 +52,7 @@ public class BoxController {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         DeliveryDTO deliver = gson.fromJson(deliverJson, DeliveryDTO.class);
         BookDTO book = deliver.getBook();
-        //System.out.println("BOOK FROM JSON: "+book.getId().toString());
         BoxDTO putIn = deliver.getBox();
-        //System.out.println("BOX FROM JSON: "+putIn.getId().toString());
         UUID foundBook = null;
         BookDTO bookDTO=new BookDTO();
 
@@ -85,30 +83,28 @@ public class BoxController {
         DeliveryDTO deliver = gson.fromJson(deliverJson, DeliveryDTO.class);
 
         BookDTO bookOut = deliver.getBook();
+        System.out.println("---------CHECKOUT-------\n FROM JSON BOOK: "+bookOut.getTitle());
         BoxDTO takeOut = deliver.getBox();
         Box foundBox = boxService.findByAddress(takeOut.getAddress());
         UUID foundBook=null;
         BookDTO bookDTO=new BookDTO();
-
+        System.out.println("SENDING BOOK REQUEST");
         ResponseEntity<BooksDTO> response7 = restTemplate
                 .exchange(URL + "/api/books", HttpMethod.GET, headersEntity, BooksDTO.class);
 
         for (BookDTO b : Objects.requireNonNull(response7.getBody()).getBooks()) {
-            //System.out.println(b);
-            if (b.getId() == bookOut.getId()) {
+            System.out.println("CHECKOUT b: "+b.getTitle()+b.getId().toString());
+            if (b.getTitle().equals(bookOut.getTitle())) {
+                System.out.println("EQUAL IF");
                 bookDTO=b;
-                foundBook = bookOut.getId();
+                foundBook = b.getId();
             }
         }
 
-        /*List<Bookorder> toPickup = orderService.findByBookId(foundBook.getId());
-        Bookorder checkedOut=new Bookorder();
-        for(Bookorder o: toPickup){
-            if(o.getSubmitted())
-                checkedOut = o;
-        }*/
-        if(foundBook!=null)
+        if(foundBook!=null){
             boxService.checkOut(foundBox, bookDTO);
+            System.out.println("FOUNDBOOK IS NOT NULL");
+        }
         return ResponseEntity.ok().build();
     }
 }

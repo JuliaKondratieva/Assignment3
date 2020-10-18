@@ -1,7 +1,6 @@
 package com.julieandco.bookcrossing.box.entity.dto;
 
 import java.util.List;
-import java.util.UUID;
 
 public class BooksDTO {
     private List<BookDTO> books;

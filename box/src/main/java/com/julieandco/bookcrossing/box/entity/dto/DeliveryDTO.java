@@ -1,9 +1,5 @@
 package com.julieandco.bookcrossing.box.entity.dto;
 
-import com.julieandco.bookcrossing.box.entity.Box;
-
-import java.util.UUID;
-
 public class DeliveryDTO {
     private BookDTO book;
     private BoxDTO box;
