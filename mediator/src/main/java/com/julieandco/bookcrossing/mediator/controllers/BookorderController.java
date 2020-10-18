@@ -37,11 +37,6 @@ public class BookorderController {
         ResponseEntity<Void> response1 = restTemplate
                 .exchange(URL + "/api/bookorders/submit", HttpMethod.POST, submitOrder, Void.class);
 
-        //String deliverJsonStr = deliverJson;
-        //HttpEntity<String> deliverJsonNew = new HttpEntity<>(deliverJsonStr, headers);
-        //ResponseEntity<Void> response3 = restTemplate
-               /// .exchange(URL + "/api/bookorders/submit", HttpMethod.POST,
-                  //      deliverJsonNew, Void.class); ///so not sure
         return ResponseEntity.ok().build();
     }
 

@@ -1,7 +1,6 @@
 package com.julieandco.bookcrossing.mediator.dto;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class SubmitBookorderDTO {
     private CustomerDTO user;
