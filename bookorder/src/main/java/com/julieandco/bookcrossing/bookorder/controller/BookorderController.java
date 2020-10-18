@@ -170,7 +170,7 @@ public class BookorderController {
         //CustomerDTO customerUUID = bookorderDTO.getUser();
         //BookDTO bookDTO = new BookDTO();
         System.out.println("--------PUTTING ORDER---------");
-        List<Bookorder> allOrders = bookorderService.getAllOrders();
+        List<Bookorder> allOrders = bookorderService.getAllOrders(); //null
         System.out.println("BOOK ID: "+bookorderDTO.getBook().getId().toString());
         for(Bookorder o: allOrders){
             System.out.println("Order O: "+o.getId().toString());

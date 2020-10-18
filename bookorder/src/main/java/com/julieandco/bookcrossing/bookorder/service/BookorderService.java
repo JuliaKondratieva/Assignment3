@@ -40,23 +40,32 @@ public class BookorderService {
         findById = bookorderRepo.findByBookId(orderedBook.getId());
         System.out.println("----------BOOKORDERSERVICE--------");
         //System.out.println("FINDBYIDLIST: 1 "+bookorderRepo.findByBookId(orderedBook.getId()).get(0).toString() +" 2- "+bookorderRepo.findByBookId(orderedBook.getId()).get(1));
-        if(findById.contains(orderedBook)){
-            newOrder=new Bookorder();
-            newOrder.setBookId(orderedBook.getId());
-            newOrder.setCustomerId(user.getId());
-            newOrder.setSubmitted(false);
-            System.out.println("SAVING TO REPO");
-            bookorderRepo.save(newOrder);
-            System.out.println("You are in waiting list \n");
+        boolean foundInList = false;
+        for(Bookorder o: findById) {
+            System.out.println("O" +o.getBookId().toString());
+            if (o.getBookId().equals(orderedBook.getId())) {
+                System.out.println("EQUALS IF LOOP");
+                newOrder = new Bookorder();
+                newOrder.setBookId(orderedBook.getId());
+                newOrder.setCustomerId(user.getId());
+                newOrder.setSubmitted(false);
+                System.out.println("SAVING TO REPO");
+                bookorderRepo.save(newOrder);
+                System.out.println("You are in waiting list \n");
+                foundInList = true;
+                break;
+            }
         }
 
-        else {
+
+        if(!foundInList) {
             System.out.println("ELSE LOOP SAVING nEW ORDER");
             newOrder = new Bookorder();
             newOrder.setBookId(orderedBook.getId());
             newOrder.setCustomerId(user.getId());
             bookorderRepo.save(newOrder);
         }
+
         //bookel.setAvailable(false);
         //bookRepository.save(bookel);
 
