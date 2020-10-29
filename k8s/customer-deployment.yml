@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookcrossingcust
+  template:
+    metadata:
+      labels:
+        app: bookcrossingcust
+    spec:
+      hostNetwork: true
+      containers:
+        - image: customer:0.0.1-SNAPSHOT
+          name: customers
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8002
+              name: customers

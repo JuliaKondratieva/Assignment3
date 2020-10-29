@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookcrossingmediator
+  template:
+    metadata:
+      labels:
+        app: bookcrossingmediator
+    spec:
+      hostNetwork: true
+      containers:
+        - image: mediator:0.0.1-SNAPSHOT
+          name: mediator
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+              name: mediator
